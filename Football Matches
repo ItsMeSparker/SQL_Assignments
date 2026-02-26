@@ -1,0 +1,23 @@
+CREATE TABLE Team
+(
+  TeamName CHAR(128) PRIMARY KEY
+);
+
+CREATE TABLE Location
+(
+  LocName CHAR(128) PRIMARY KEY,
+  Address CHAR(128) UNIQUE
+);
+
+
+Create TABLE Match
+(
+  HomeTeamName CHAR(128) UNIQUE,
+  VisitorTeamName CHAR(128) UNIQUE,
+  LocName CHAR(128) UNIQUE,
+  Score INT,
+  PRIMARY KEy (HomeTeamName, VisitorTeamName, LocName),
+  FOREIGN KEY (HomeTeamName) REFERENCES Team(TeamName),
+  FOREIGN KEY (HomeTeamName) REFERENCES Team(TeamName),
+  FOREIGN KEY (LocName) REFERENCES Location(LocName)
+);
