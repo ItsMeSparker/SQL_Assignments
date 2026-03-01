@@ -1,0 +1,34 @@
+CREATE DATABASE MOVIES;
+USE MOVIES;
+
+CREATE TABLE Movie
+(
+	title Char(128),
+    year INT,
+    length INT,
+    genre Char(64)
+);
+
+ALTER TABLE Movie ADD movieid Char(64) PRIMARY KEY; 
+
+INSERT INTO Movie VALUES("Chocolate Factory", 2006, 112, "Drama", "m01");
+INSERT INTO Movie VALUES("Star Wars", 1977, 124, "Scifi", "m02");
+INSERT INTO Movie VALUES("Wizard of Oz", 1970, 100, "Advanture", "m03");
+
+CREATE TABLE Moviestar
+(
+	strid Char(128) Primary Key,
+    name Char(128),
+    address TEXT(255),
+    gender Char(8),
+    movieid Char(64),
+    
+    FOREIGN KEY (movieid) REFERENCES Movie (movieid)
+);
+
+INSERT INTO Moviestar VALUES("s01", "Wookee", "Hollywood North st.", "M", "m02");
+INSERT INTO Moviestar VALUES("s02", "Willy Wongka", "Hollywood East st.", "M", "m01");
+INSERT INTO Moviestar VALUES("s03", "Dorothy", "Hollywood West st.", "M", "m03");
+
+SELECT * FROM Movie;
+SELECT * FROM MOviestar
