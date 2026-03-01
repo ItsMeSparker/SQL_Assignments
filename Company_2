@@ -1,0 +1,89 @@
+CREATE DATABASE COMPANY;
+USE COMPANY;
+
+CREATE TABLE EMPLOYEE
+(
+  Fname Char(128),
+  Mint INT,
+  Lname Char(128),
+  Ssn INT PRIMARY KEY,
+  Bdate CHAR(16),
+  Address Char(128),
+  Sex Char(8),
+  Salary REAL,
+  Super_ssn INT,
+  Dno INT,
+  
+  FOREIGN KEY (Dno) REFERENCES Department(Dnumber),
+  FOREIGN KEY (Super_ssn) REFERENCES EMPLOYEE(Ssn)
+);
+
+#4
+ALTER TABLE EMPLOYEE ADD STATUS boolean;
+#6
+ALTER TABLE EMPLOYEE DROP SEX;
+
+ALTER TABLE EMPLOYEE ADD FOREIGN KEY (Dno) REFERENCES Department(Dnumber);
+
+
+CREATE TABLE DEPARTMENT 
+(
+  Dname Char(128),
+  Dnumber INT PRIMARY Key,
+  Mgr_ssn INT,
+  Mgr_start_date CHAR(16),
+  
+   FOREIGN KEY (Mgr_ssn) REFERENCES EMPLOYEE(SSN)
+);
+
+#2
+ALTER TABLE DEPARTMENT ADD Location Char(128);
+#7
+Alter TABLE DEPARTMENT RENAME COLUMN Mgr_start_date to start;
+
+CREATE TABLE DEPT_LOCATION
+(
+  Dnumber INT,
+  Dlocation Char(128),
+  
+  PRIMARY KEY (Dnumber, Dlocation),
+  FOREIGN KEY (Dnumber) REFERENCES DEPARTMENT (Dnumber)
+);
+
+CREATE TABLE PROJECT
+(
+  Pname Char(128),
+  Pnumber INT PRIMARY KEY,
+  Plocation Char(128),
+  Dnum INT,
+  
+  FOREIGN KEY (Dnum) REFERENCES DEPARTMENT (Dnumber)
+);
+
+CREATE TABLE WORK_ON
+(
+  Essn INT,
+  Pno INT,
+  Hour REAL,
+  
+  PRIMARY KEY (Essn, Pno),
+  FOREIGN KEY (Pno) REFERENCES PROJECT (Pnumber),
+  FOREIGN KEY (Essn) REFERENCES EMPLOYEE(Ssn)
+);
+
+#3
+ALTER TABLE WORK_ON ADD Work_ID INT;
+#5
+ALTER TABLE WORK_ON MODIFY Work_ID char(5);
+
+CREATE TABLE DEPENDENT
+(
+  Essn INT,
+  Dependent_name Char(128),
+  Sex Char(8),
+  Bdate Char(16),
+  Relationship Char(64),
+
+  PRIMARY KEY (Essn, Dependent_name),
+  FOREIGN KEY (Essn) REFERENCES EMPLOYEE(Ssn)
+);
