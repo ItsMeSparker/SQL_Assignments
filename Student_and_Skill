@@ -1,0 +1,38 @@
+CREATE DATABASE db1;
+USE db1;
+
+CREATE TABLE Student
+(
+	sid INT Primary Key,
+    sname varchar(16),
+    phone varchar(16),
+    GPA decimal(3, 2)
+);
+
+CREATE TABLE Skill
+(
+	sid INT,
+    Language varchar(16),
+    
+    Primary Key (sid, Language),
+    foreign key (sid) references Student(sid)
+    
+);
+
+insert into Student values("111", "Tom", "234154", "2.89");
+insert into Student values("222", "Janny", "784885", "1.44");
+insert into Student values("333", "Kate", "333444", "3.12");
+
+insert into Skill values("111", "Java");
+insert into Skill values("111", "C++");
+insert into Skill values("222", "Java");
+
+DELETE FROM SKILL WHERE sid = "111";
+SET SQL_SAFE_UPDATES = 0;
+UPDATE Student set phone="777771" WHERE sname = "Janny";
+
+DELETE FROM Student WHERE sname = "Janny";
+#Cannot delete Janny from the table because sid of Janny is reference to that in Skill table
+
+SELECT * FROM Student;
+SELECT * FROM Skill;
