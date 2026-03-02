@@ -1,0 +1,54 @@
+CREATE DATABASE bookstore_db;
+USE bookstore_db;
+
+CREATE TABLE Customers
+(
+	customer_id INT Primary Key,
+    name varchar(32) NOT NULL,
+    email varchar(32) UNIQUE,
+    city varchar(32)
+);
+
+CREATE TABLE Books
+(
+	book_id INT Primary Key,
+    title varchar(32) NOT NULL,
+    price float
+    
+);
+
+CREATE TABLE Orders
+(
+	ordert_id INT Primary Key,
+    customer_id INT,
+    book_id INT,
+    order_date date,
+    
+    
+    foreign key (customer_id) references Customers(customer_id),
+	foreign key (book_id) references Books(book_id)
+);
+
+ALTER TABLE Books ADD stock_quantity decimal DEFAULT 0;
+
+
+insert into Customers values("1", "Alice", "alice@gmail.com", "Delhi");
+insert into Customers values("2", "Bob", "bob@gmail.com", "Mumbai");
+
+insert into Books values("101", "SQL Basics", "450", "10");
+insert into Books values("102", "Advanced Databases", "650", "5");
+
+insert into Orders values("1", "1", "101", '2024-01-10');
+insert into Orders values("2", "1", "102", '2024-01-12');
+insert into Orders values("3", "2", "101", '2024-01-15');
+
+UPDATE Books set price = price + (price * 0.1) WHERE title = "SQL Basics";
+UPDATE Books set stock_quantity = stock_quantity - 1 WHERE book_id = "101";
+
+
+DELETE FROM Orders WHERE ordert_id = "3";
+DELETE FROM Customers WHERE email = "bob@gmail.com";
+
+SELECT * FROM Books;
+SELECT * FROM Customers;
+SELECT * FROM Orders;
